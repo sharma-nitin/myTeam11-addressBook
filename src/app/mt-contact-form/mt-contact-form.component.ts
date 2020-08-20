@@ -30,8 +30,8 @@ export class mtContactFormComponent implements OnInit {
       this.countryData = res;
       this.countries = Object.keys(res) ;
       this.states = this.countryData['India'];
+      this.routeBasedAction();
     });
-    this.routeBasedAction();
   }
 
   onCountrySelect(country){
@@ -85,7 +85,8 @@ export class mtContactFormComponent implements OnInit {
       country: this.contactModel.country,
       state: this.contactModel.state
     };
-    const index = this.contacts.findIndex((el) => el.id === this.contactModel.id);
+    const index = this.contacts.findIndex((el) =>
+        el.id === contact.id);
     this.contacts[index] = contact;
     this.contactService.update(this.contacts);
     this.updated = 'updated';
