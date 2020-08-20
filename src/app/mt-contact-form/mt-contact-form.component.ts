@@ -53,6 +53,7 @@ export class mtContactFormComponent implements OnInit {
         const editContact = this.contacts.filter((contact)=>{
           return contact.id === id;
         });
+        this.states = this.countryData[editContact[0].country];
         this.contactModel = new Contact(
           editContact[0].firstName,
           editContact[0].lastName,
