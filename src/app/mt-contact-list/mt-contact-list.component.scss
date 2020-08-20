@@ -1,0 +1,95 @@
+$box_width: 250px;
+$box_height: 300px;
+$box_bRadius: 10px;
+$box_background: aquamarine;
+$box_shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+$text_color: black;
+$links_color: #626262;
+$bottom_box_bg: #f5f5f5;
+
+body {
+  background-color: #e6e6e6;
+  font-family: Roboto, sans-serif;
+}
+
+
+.bottom-heading {
+  margin: 0;
+  color: black;
+  font-weight: bold;
+  padding: 5px;
+  text-align: center;
+  text-decoration: underline;
+}
+
+.bottom-content {
+  margin: 0;
+  padding: 10px;
+  text-align: center;
+}
+
+.button {
+  background-color: #4caf50;
+  border: none;
+  color: white;
+  padding: 16px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  transition-duration: 0.4s;
+  cursor: pointer;
+  border-radius: 30px;
+}
+
+.add-contact {
+  background-color: white;
+  color: black;
+  border: 2px solid #335c7d;
+  float: right;
+  margin: 20px;
+}
+
+.add-contact:hover {
+  background-color: #335c7d;
+  color: white;
+}
+
+.c-pointer {
+  cursor: pointer;
+}
+
+.modal-body {
+  position: relative;
+  background: aliceblue;
+  flex: 1 1 auto;
+  border: 1px solid deepskyblue;
+  padding: 1rem;
+}
+
+.modal-buttons {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+}
+
+.modal-btn {
+  margin: 5px;
+  background: cadetblue;
+  border: 1px solid;
+  font-style: italic;
+}
+
+.message {
+  line-height: 10px;
+  padding: 10px;
+  text-align: center;
+  background: azure;
+  color: black;
+  font-style: italic;
+}
+
+
+.list-header{
+  display: flex;
+  justify-content: flex-end;
+}

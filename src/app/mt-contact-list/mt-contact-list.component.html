@@ -1,0 +1,60 @@
+<!-- START: Add Contact Button -->
+<div class="list-header">
+  <div></div>
+  <button class="button add-contact c-pointer" (click)="navigate('add')"><a><i class="fas fa-plus"></i> Add
+      Contact</a></button>
+</div>
+<!-- END: Add Contact Button -->
+
+<!-- START: No Contact Message  -->
+<div *ngIf="contacts.length==0" class="container-fluid">
+  <p class="message">Address Book is empty. Click on create contact to add a contact to the List</p>
+</div>
+<!-- END: No Contact Message  -->
+
+<!-- START: Contact List Table  -->
+<div class="table-responsive" *ngIf="contacts.length !==0">
+  <table class="table table-hover">
+    <thead class="thead-dark">
+      <tr>
+        <th scope="col">S.no</th>
+        <th scope="col">Name</th>
+        <th scope="col">Phoneno.</th>
+        <th scope="col">Email</th>
+        <th scope="col">Country</th>
+        <th scope="col">State</th>
+        <th scope="col">Edit</th>
+        <th scope="col">Delete</th>
+
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let contact of contacts;let i=index">
+        <th scope="row">{{i+1}}</th>
+        <td>{{contact.firstName}} {{contact.lastName}}</td>
+        <td>{{contact.phoneno}}</td>
+        <td>{{contact.email}}</td>
+        <td>{{contact.country}}</td>
+        <td>{{contact.state}}</td>
+        <td (click)="navigate('edit',contact.id)"><i class='fas fa-pen c-pointer'></i></td>
+        <td (click)="deleteModal(contact,template)"><i class="fas fa-trash-alt c-pointer"></i></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- END: Contact List Table -->
+
+<!-- START: Modal for deletion popup -->
+<ng-template #template>
+  <div class="modal-body">
+    <p>Are you sure you want to delete contact of {{contacttoDelete.firstName}} {{contacttoDelete.lastName}}
+      and all its details.
+    </p>
+    <div class="modal-buttons">
+      <button class="modal-btn" (click)="modalRef.hide()"> Cancel </button>
+      <button class="modal-btn" (click)="delete()"> Ok </button>
+    </div>
+  </div>
+</ng-template>
+<!-- END: Modal for deletion popup -->

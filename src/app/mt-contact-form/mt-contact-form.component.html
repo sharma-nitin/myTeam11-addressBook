@@ -1,0 +1,61 @@
+<!-- START: Back to Home Button -->
+<div class="list-header">
+  <button class="button back-button c-pointer" (click)="navigate()"><a><i class="fas fa-arrow-alt-circle-left"></i> Back
+      to Home</a></button>
+  <div></div>
+</div>
+<!-- END: Back to Home Button -->
+
+<!-- START: Contact Create/Update Form -->
+<form #contactForm="ngForm" class="contact-form">
+  <h1 class="contact-form-title" *ngIf="activeRoute=='add'">Add Contact</h1>
+  <h1 class="contact-form-title" *ngIf="activeRoute=='edit'">Edit Contact</h1>
+
+  <div class="form-group">
+    <input type="text" #fname='ngModel' [(ngModel)]="contactModel.firstName" name="fname" required class="form-control"
+      [class.is-invalid]='fname.invalid && fname.touched' placeholder="First Name">
+    <small class="text-danger" [class.d-none]="fname.valid || fname.untouched">* First name is required</small>
+  </div>
+  <div class="form-group">
+    <input type="text" #lname='ngModel' [(ngModel)]="contactModel.lastName" name="lname"
+      [class.is-invalid]='lname.invalid && lname.touched' class=" form-control" placeholder="Last Name">
+  </div>
+
+  <div class="form-group">
+    <input type="text" #email='ngModel' pattern="[a-zA-Z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
+      [(ngModel)]="contactModel.email" name="email" class=" form-control"
+      [class.is-invalid]='email.invalid && email.touched' placeholder="Email">
+    <small class="text-danger" [class.d-none]="email.valid || email.untouched">* Please enter a valid email</small>
+  </div>
+
+  <div class="form-group">
+    <input type="text" #phoneno='ngModel' pattern="^\d{10}$" [(ngModel)]="contactModel.phoneno" required
+      [class.is-invalid]='phoneno.invalid && phoneno.touched' name="phoneno" class="form-control"
+      placeholder="Contact no.">
+    <small class="text-danger" [class.d-none]="phoneno.valid || phoneno.untouched">* Phone no must be 10 character
+      long</small>
+  </div>
+
+  <div class="form-group">
+    <span>Select Country</span>
+    <select class="contact-form-address" [(ngModel)]="contactModel.country" name="country" required (change)="onCountrySelect($event.target.value)">
+      <option [value]="country" *ngFor="let country of countries">{{country}}</option>
+    </select>
+  </div>
+
+  <div class="form-group">
+    <span>Select State</span>
+    <select class="contact-form-address" [(ngModel)]="contactModel.state" name="state" required >
+      <option class="placeholder" selected disabled value="">Select state</option>
+      <option [value]="state" *ngFor="let state of states">{{state}}</option>
+    </select>
+  </div>
+
+  <Button [class.disable]="contactForm.form.invalid" type="submit" class="contact-form-button c-pointer"
+    *ngIf="activeRoute=='add'" (click)="addContact()">Add</Button>
+  <Button [class.disable]="contactForm.form.invalid" type="submit" class="contact-form-button c-pointer"
+    *ngIf="activeRoute=='edit'" (click)="updateContact()">Update</Button>
+  <span class="contact-updated" *ngIf="updated==='added'"> Contact Added Successfully !</span>
+  <span class="contact-updated" *ngIf="updated==='updated'"> Contact Updated Successfully !</span>
+</form>
+<!-- END: Contact Create/Update Form -->

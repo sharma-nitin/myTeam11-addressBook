@@ -1,0 +1,13 @@
+header {
+  width: 100%;
+  text-align: center;
+  font-size: 25px;
+  height: 100px;
+  line-height: 80px;
+  background: #335c7d;
+  color: #ffd;
+  font-family: "PT Sans", sans-serif;
+  top: 0;
+  position: sticky;
+  z-index: 999;
+}
