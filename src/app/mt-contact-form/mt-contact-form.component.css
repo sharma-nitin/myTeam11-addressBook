@@ -236,3 +236,23 @@ input {
 }
 
 
+.modal-body {
+  position: relative;
+  background: aliceblue;
+  flex: 1 1 auto;
+  border: 1px solid deepskyblue;
+  padding: 1rem;
+}
+
+.modal-buttons {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+}
+
+.modal-btn {
+  margin: 5px;
+  background: cadetblue;
+  border: 1px solid;
+  font-style: italic;
+}

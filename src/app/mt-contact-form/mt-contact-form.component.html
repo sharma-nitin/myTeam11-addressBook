@@ -52,10 +52,23 @@
   </div>
 
   <Button [class.disable]="contactForm.form.invalid" type="submit" class="contact-form-button c-pointer"
-    *ngIf="activeRoute=='add'" (click)="addContact()">Add</Button>
+    *ngIf="activeRoute=='add'" (click)="addContact(template)">Add</Button>
   <Button [class.disable]="contactForm.form.invalid" type="submit" class="contact-form-button c-pointer"
     *ngIf="activeRoute=='edit'" (click)="updateContact()">Update</Button>
   <span class="contact-updated" *ngIf="updated==='added'"> Contact Added Successfully !</span>
   <span class="contact-updated" *ngIf="updated==='updated'"> Contact Updated Successfully !</span>
 </form>
 <!-- END: Contact Create/Update Form -->
+
+
+<!-- START: Modal for deletion popup -->
+<ng-template #template>
+  <div class="modal-body">
+    <p>User with given contact details Already Exist.
+    </p>
+    <div class="modal-buttons">
+      <button class="modal-btn" (click)="modalRef.hide()"> ok </button>
+    </div>
+  </div>
+</ng-template>
+<!-- END: Modal for deletion popup -->

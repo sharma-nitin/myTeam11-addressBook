@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { ContactService } from '../mt-services/contact.service';
 import { iContact } from '../mt-interface/contact.interface';
 import { Contact } from '../../app/mt-model/contact';
+import { BsModalService,BsModalRef } from 'ngx-bootstrap/modal';
 @Component({
   selector: 'mt-contact-form',
   templateUrl: './mt-contact-form.component.html',
@@ -11,14 +12,17 @@ import { Contact } from '../../app/mt-model/contact';
 
 export class mtContactFormComponent implements OnInit {
   contacts: iContact[];
+  modalRef: BsModalRef;
   activeRoute: string;
   contactModel = new Contact('', '', '', '', 'India', '');
   countryData: any;
   countries = [];
   states = [];
   updated = '';
+  userExist = false;
   constructor(private router: Router,
-              private contactService: ContactService,
+    private modalService: BsModalService,
+    private contactService: ContactService,
   ) { }
 
   /**
@@ -28,14 +32,15 @@ export class mtContactFormComponent implements OnInit {
     this.contacts = this.contactService.getContacts();
     this.contactService.getCountries().subscribe((res: any) => {
       this.countryData = res;
-      this.countries = Object.keys(res) ;
+      this.countries = Object.keys(res);
       this.states = this.countryData['India'];
       this.routeBasedAction();
     });
   }
 
-  onCountrySelect(country){
+  onCountrySelect(country) {
     this.states = this.countryData[country];
+    this.contactModel.state = '';
   }
 
   /**
@@ -50,7 +55,7 @@ export class mtContactFormComponent implements OnInit {
       if (this.router.url === '/edit-contact') {
         this.activeRoute = 'edit';
         const id = this.contactService.getIdToBeEdited();
-        const editContact = this.contacts.filter((contact)=>{
+        const editContact = this.contacts.filter((contact) => {
           return contact.id === id;
         });
         this.states = this.countryData[editContact[0].country];
@@ -60,7 +65,9 @@ export class mtContactFormComponent implements OnInit {
           editContact[0].email,
           editContact[0].phoneno,
           editContact[0].country,
-          editContact[0].state);
+          editContact[0].state,
+          editContact[0].id,
+        );
       }
   }
 
@@ -78,16 +85,16 @@ export class mtContactFormComponent implements OnInit {
    */
   updateContact() {
     const contact = {
-      id:this.contactModel.phoneno,
       firstName: this.contactModel.firstName,
       lastName: this.contactModel.lastName,
       email: this.contactModel.email,
       phoneno: this.contactModel.phoneno,
       country: this.contactModel.country,
-      state: this.contactModel.state
+      state: this.contactModel.state,
+      id: this.contactModel.id,
     };
     const index = this.contacts.findIndex((el) =>
-        el.id === contact.id);
+      el.id === contact.id);
     this.contacts[index] = contact;
     this.contactService.update(this.contacts);
     this.updated = 'updated';
@@ -100,9 +107,9 @@ export class mtContactFormComponent implements OnInit {
    * Adds contact when a New contact is added
    * Navigate to Contact List once added
    */
-  addContact() {
+  addContact(template) {
     const contact = {
-      id: this.contactService.getContacts().length + 1,
+      id: this.contactModel.phoneno,
       firstName: this.contactModel.firstName,
       lastName: this.contactModel.lastName,
       email: this.contactModel.email,
@@ -110,6 +117,14 @@ export class mtContactFormComponent implements OnInit {
       country: this.contactModel.country,
       state: this.contactModel.state
     };
+    const ExistContact = this.contacts.filter((item) => {
+      return item.phoneno === contact.phoneno;
+    });
+
+    if (ExistContact[0]) {
+     this.modalRef = this.modalService.show(template);
+      return;
+    }
     const updatedContacts = [...this.contacts, ...[contact]];
     this.contactService.update(updatedContacts);
     this.updated = 'added';

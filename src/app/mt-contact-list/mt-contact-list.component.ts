@@ -30,12 +30,12 @@ export class mtContactListComponent implements OnInit {
    * @param status - add/edit
    * @param [index] - index of contact
    */
-  navigate(status, i?) {
+  navigate(status, id?) {
     if (status === 'add') {
       this.router.navigate(['add-contact']);
     } else
       if (status === 'edit') {
-        this.contactService.setIdToBeEdited(i);
+        this.contactService.setIdToBeEdited(id);
         this.router.navigate(['edit-contact/']);
       }
   }
