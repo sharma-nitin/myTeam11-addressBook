@@ -1,4 +1,5 @@
 export interface iContact {
+  image: string,
   firstName : string ,
   lastName: string ,
   email: string ,

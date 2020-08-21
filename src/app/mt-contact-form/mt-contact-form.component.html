@@ -12,6 +12,12 @@
   <h1 class="contact-form-title" *ngIf="activeRoute=='edit'">Edit Contact</h1>
 
   <div class="form-group">
+     <img [src]="url" height="200"> <br/>
+     <label for="files" class="image">Select Image</label>
+     <input id="files" style="display:none;" type='file' (change)="onSelectFile($event)">
+  </div>
+
+  <div class="form-group">
     <input type="text" #fname='ngModel' [(ngModel)]="contactModel.firstName" name="fname" required class="form-control"
       [class.is-invalid]='fname.invalid && fname.touched' placeholder="First Name">
     <small class="text-danger" [class.d-none]="fname.valid || fname.untouched">* First name is required</small>

@@ -256,3 +256,12 @@ input {
   border: 1px solid;
   font-style: italic;
 }
+
+.image{
+  cursor: pointer;
+  margin: 10px 40px;
+  padding:5px;
+  border: 1px solid;
+  color: gray;
+  background-color: aliceblue;
+}

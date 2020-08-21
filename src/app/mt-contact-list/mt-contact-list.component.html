@@ -12,6 +12,7 @@
     <thead class="thead-dark">
       <tr>
         <th scope="col">S.no</th>
+        <th scope="col">Image</th>
         <th (click)="sortBy('firstName')" scope="col">
           <span class="p-10">Name</span>
           <i *ngIf="asc && prevSortedBy == 'firstName'" class="fas fa-sort-amount-up"></i>
@@ -41,13 +42,14 @@
     <tbody *ngIf="contacts.length !==0">
       <tr *ngFor="let contact of contacts;let i=index">
         <th scope="row">{{i+1}}</th>
+        <td ><img [src]="contact.image" height="100"></td>
         <td >{{contact.firstName}} {{contact.lastName}}</td>
         <td>{{contact.phoneno}}</td>
         <td >{{contact.email}}</td>
         <td >{{contact.country}}</td>
         <td >{{contact.state}}</td>
-        <td (click)="navigate('edit',contact.id)"><i class='fas fa-pen c-pointer'></i></td>
-        <td (click)="deleteModal(contact,template)"><i class="fas fa-trash-alt c-pointer"></i></td>
+        <td ><i (click)="navigate('edit',contact.id)" class='fas fa-pen c-pointer'></i></td>
+        <td ><i (click)="deleteModal(contact,template)" class="fas fa-trash-alt c-pointer"></i></td>
       </tr>
     </tbody>
 
