@@ -27,6 +27,16 @@ body {
   text-align: center;
 }
 
+.searchbox{
+    width: 30%;
+    height: 40px;
+    align-self: center;
+    border: none;
+    border: 1px solid #ccc;
+    margin-left: 20px;
+    padding: 5px;
+    cursor: pointer;
+}
 .button {
   background-color: #4caf50;
   border: none;
@@ -96,5 +106,5 @@ body {
 
 .list-header {
   display: flex;
-  justify-content: flex-end;
+  justify-content: space-between;
 }

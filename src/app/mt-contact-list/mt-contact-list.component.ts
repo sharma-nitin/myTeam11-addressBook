@@ -1,8 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { ContactService } from '../mt-services/contact.service';
 import { iContact } from '../mt-interface/contact.interface';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
+import { fromEvent } from 'rxjs';
+import { map, debounceTime, distinctUntilChanged } from 'rxjs/operators';
 
 @Component({
   selector: 'mt-contact-list',
@@ -10,12 +12,14 @@ import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
   styleUrls: ['./mt-contact-list.component.scss']
 })
 export class mtContactListComponent implements OnInit {
+  totalContacts: iContact[];
   contacts: iContact[];
   modalRef: BsModalRef;
   contacttoDelete: iContact;
   indexToDelete: string;
   asc = true;
   prevSortedBy = null;
+  @ViewChild('searchbox', { static: true}) searchbox: any;
   constructor(private router: Router,
     private contactService: ContactService,
     private modalService: BsModalService) { }
@@ -24,7 +28,22 @@ export class mtContactListComponent implements OnInit {
    * on init call to fetch contacts from api
    */
   ngOnInit() {
-    this.contacts = this.contactService.getContacts();
+    fromEvent(this.searchbox.nativeElement, 'keyup')
+    .pipe(
+      map((event: any) => {
+        return event.target.value;
+      }),
+      debounceTime(300),
+      distinctUntilChanged(),
+    )
+    .subscribe((text: string) => {
+     this.contacts =  this.totalContacts.filter((contact)=>{
+       return contact.firstName.toLowerCase().startsWith(text.toLowerCase());
+     })
+    });
+
+    this.totalContacts = this.contactService.getContacts();
+    this.contacts =  this.totalContacts ;
   }
 
   /**
