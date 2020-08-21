@@ -37,6 +37,7 @@ export class mtContactListComponent implements OnInit {
       distinctUntilChanged(),
     )
     .subscribe((text: string) => {
+      this.prevSortedBy = null;
      this.contacts =  this.totalContacts.filter((contact)=>{
        return contact.firstName.toLowerCase().startsWith(text.toLowerCase());
      })
