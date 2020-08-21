@@ -14,9 +14,11 @@ export class mtContactListComponent implements OnInit {
   modalRef: BsModalRef;
   contacttoDelete: iContact;
   indexToDelete: string;
+  asc = true;
+  prevSortedBy = null;
   constructor(private router: Router,
-              private contactService: ContactService,
-              private modalService: BsModalService) { }
+    private contactService: ContactService,
+    private modalService: BsModalService) { }
 
   /**
    * on init call to fetch contacts from api
@@ -46,7 +48,7 @@ export class mtContactListComponent implements OnInit {
    * @param contact - contact to delete
    * @param template - templeteref of modal
    */
-  deleteModal(contact, template, ) {
+  deleteModal(contact, template,) {
     this.indexToDelete = contact.id;
     this.contacttoDelete = contact;
     this.modalRef = this.modalService.show(template);
@@ -56,12 +58,46 @@ export class mtContactListComponent implements OnInit {
    * Delete a contact and update the list
    */
   delete() {
-    const contacts = this.contacts.filter((contact)=>{
-     return contact.id !== this.indexToDelete;
+    const contacts = this.contacts.filter((contact) => {
+      return contact.id !== this.indexToDelete;
     });
     this.contacts = [...contacts];
     // this.contacts.splice(this.indexToDelete, 1);
     this.contactService.deleteContact(this.contacts);
     this.modalRef.hide();
+  }
+
+  sortBy(value) {
+    if (this.prevSortedBy === value) {
+      this.asc = !this.asc;
+    } else {
+      this.asc = true;
+    }
+    this.prevSortedBy = value;
+    this.sortByField(value);
+  }
+
+  sortByField(value) {
+    if (this.asc) {
+      this.contacts.sort(function (a, b) {
+        var nameA = a[value].toLowerCase();
+        var nameB = b[value].toLowerCase()
+        if (nameA < nameB)
+          return -1
+        if (nameA > nameB)
+          return 1
+        return 0;
+      })
+    } else{
+      this.contacts.sort(function (a, b) {
+        var nameA = a[value].toLowerCase();
+        var nameB = b[value].toLowerCase()
+        if (nameA < nameB)
+          return 1
+        if (nameA > nameB)
+          return -1
+        return 0;
+      })
+    }
   }
 }

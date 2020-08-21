@@ -6,40 +6,59 @@
 </div>
 <!-- END: Add Contact Button -->
 
-<!-- START: No Contact Message  -->
-<div *ngIf="contacts.length==0" class="container-fluid">
-  <p class="message">Address Book is empty. Click on create contact to add a contact to the List</p>
-</div>
-<!-- END: No Contact Message  -->
-
 <!-- START: Contact List Table  -->
-<div class="table-responsive" *ngIf="contacts.length !==0">
+<div class="table-responsive cursor">
   <table class="table table-hover">
     <thead class="thead-dark">
       <tr>
         <th scope="col">S.no</th>
-        <th scope="col">Name</th>
+        <th (click)="sortBy('firstName')" scope="col">
+          <span class="p-10">Name</span>
+          <i *ngIf="asc && prevSortedBy == 'firstName'" class="fas fa-sort-amount-up"></i>
+          <i *ngIf="!asc && prevSortedBy == 'firstName'" class="fas fa-sort-amount-down"></i>
+        </th>
         <th scope="col">Phoneno.</th>
-        <th scope="col">Email</th>
-        <th scope="col">Country</th>
-        <th scope="col">State</th>
+        <th (click)="sortBy('email')" scope="col">
+          <span class="p-10">Email</span>
+          <i *ngIf="asc && prevSortedBy == 'email'" class="fas fa-sort-amount-up"></i>
+          <i *ngIf="!asc && prevSortedBy == 'email'" class="fas fa-sort-amount-down"></i>
+        </th>
+        <th (click)="sortBy('country')" scope="col">
+          <span class="p-10">Country</span>
+          <i *ngIf="asc && prevSortedBy == 'country'" class="fas fa-sort-amount-up"></i>
+          <i *ngIf="!asc && prevSortedBy == 'country'" class="fas fa-sort-amount-down"></i>
+        </th>
+        <th (click)="sortBy('state')" scope="col">
+          <span class="p-10">State</span>
+          <i *ngIf="asc && prevSortedBy == 'state'" class="fas fa-sort-amount-up"></i>
+          <i *ngIf="!asc && prevSortedBy == 'state'" class="fas fa-sort-amount-down"></i>
+        </th>
         <th scope="col">Edit</th>
         <th scope="col">Delete</th>
 
       </tr>
     </thead>
-    <tbody>
+    <tbody *ngIf="contacts.length !==0">
       <tr *ngFor="let contact of contacts;let i=index">
         <th scope="row">{{i+1}}</th>
-        <td>{{contact.firstName}} {{contact.lastName}}</td>
+        <td >{{contact.firstName}} {{contact.lastName}}</td>
         <td>{{contact.phoneno}}</td>
-        <td>{{contact.email}}</td>
-        <td>{{contact.country}}</td>
-        <td>{{contact.state}}</td>
+        <td >{{contact.email}}</td>
+        <td >{{contact.country}}</td>
+        <td >{{contact.state}}</td>
         <td (click)="navigate('edit',contact.id)"><i class='fas fa-pen c-pointer'></i></td>
         <td (click)="deleteModal(contact,template)"><i class="fas fa-trash-alt c-pointer"></i></td>
       </tr>
     </tbody>
+
+    <tbody *ngIf="contacts.length==0">
+      <tr>
+        <td colspan="7">
+          <p class="message">No matching result found. Please modify search criteria or add a new contact.</p>
+        </td>
+      </tr>
+    </tbody>
+
   </table>
 </div>
 

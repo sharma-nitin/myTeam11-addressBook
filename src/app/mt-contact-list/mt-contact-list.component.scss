@@ -12,7 +12,6 @@ body {
   font-family: Roboto, sans-serif;
 }
 
-
 .bottom-heading {
   margin: 0;
   color: black;
@@ -53,6 +52,13 @@ body {
   background-color: #335c7d;
   color: white;
 }
+.cursor{
+  cursor: pointer;
+}
+
+.p-10 {
+  padding-right: 10px;
+}
 
 .c-pointer {
   cursor: pointer;
@@ -88,8 +94,7 @@ body {
   font-style: italic;
 }
 
-
-.list-header{
+.list-header {
   display: flex;
   justify-content: flex-end;
 }
