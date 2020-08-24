@@ -7,7 +7,7 @@
 <!-- END: Back to Home Button -->
 
 <!-- START: Contact Create/Update Form -->
-<form #contactForm="ngForm" class="contact-form" (keydown.enter)="$event.preventDefault()">
+<form #contactForm="ngForm" class="contact-form" (keydown.enter)="$event.preventDefault()"> 
   <h1 class="contact-form-title" *ngIf="activeRoute=='add'">Add Contact</h1>
   <h1 class="contact-form-title" *ngIf="activeRoute=='edit'">Edit Contact</h1>
 
